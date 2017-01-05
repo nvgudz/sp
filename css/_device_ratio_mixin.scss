@@ -1,0 +1,92 @@
+/*
+XL - browser viewport 1441 and more, site width fix 1420 px
+L -  browser viewport 1440-1241, site width fix 1180 px
+M - browser viewport 1240-1001, site width fix 940 px
+S - browser viewport 1000-768, site width fix 700 px
+XS - browser viewport 767-541, site width fix 500 px
+XXS - browser viewport 540 and less, min site width stretch  320 px 
+*/
+/* break points*/
+$xl: 1440px;
+$l: 1240px;
+$m: 1000px;
+$s: 768px;
+$xs: 540px;
+$xss: 320px;
+
+
+@mixin xxs {
+    @media only screen  and (max-width: #{$xs}) {
+        @content;
+    }
+}
+@mixin xs {
+    @media only screen and (min-width: #{$xs + 1px}) and (max-width: #{$s}) {
+        @content;
+    }
+}
+@mixin s {
+    @media only screen and (min-width: #{$s + 1px}) and (max-width: #{$m}) {
+        @content;
+    }
+}
+@mixin m {
+    @media only screen and (min-width: #{$m +1px}) and (max-width: #{$l}) {
+        @content;
+    }
+}
+@mixin l {
+    @media only screen and (min-width: #{$l +1px}) and (max-width: #{$xl}) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media only screen and (min-width: #{$xl + 1px}) {
+        @content;
+    }
+}
+/*ratio mixin*/
+/****************************
+ HIGH PPI DISPLAY BACKGROUNDS
+*****************************/
+
+@mixin background-2x($path, $ext: "png", $w: auto, $h: auto, $pos: left top, $repeat: no-repeat) {
+
+    $at1x_path: "#{$path}.#{$ext}";
+    $at2x_path: "#{$path}@2x.#{$ext}";
+
+    background-image: url("#{$at1x_path}");
+    background-size: $w $h;
+    background-position: $pos;
+    background-repeat: $repeat;
+
+    @media all and (-webkit-min-device-pixel-ratio : 1.5),
+    all and (-o-min-device-pixel-ratio: 3/2),
+    all and (min--moz-device-pixel-ratio: 1.5),
+    all and (min-device-pixel-ratio: 1.5) {
+        background-image: url("#{$at2x_path}");
+    }
+}
+/*/ratio mixin*/
+.wrap {
+    width: 1420px;
+    margin: 0 auto;
+
+    @include l {
+        width: 1180px;
+    }
+    @include m {
+        width: 940px;
+    }
+    @include s {
+        width: 700px;
+    }
+    @include xs {
+        width: 500px;
+    }
+    @include xxs {
+        width: 300px;
+    }
+}
+
